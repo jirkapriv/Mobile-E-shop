@@ -1,7 +1,7 @@
 const Category = require('../models/category');  // Assuming you have a Category model
 
 // Fetch all categories
-exports.getCategories = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();
     return res.status(200).json({ payload: categories, msg: "Categories fetched successfully" });

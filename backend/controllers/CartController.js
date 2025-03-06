@@ -1,7 +1,6 @@
 const Cart = require("../models/Cart"); // Assuming you have a Cart model
 const Product = require("../models/Product"); // Assuming you're using the Product model
 
-// Mock user ID for testing
 const mockUserId = "mockUserId123"; // Hardcoded user ID for testing
 
 // Get the cart for a specific user
@@ -70,8 +69,7 @@ exports.checkout = async (req, res) => {
       return res.status(400).send({ msg: "Cart is empty" });
     }
 
-    // You can integrate payment processing here or just simulate the checkout
-    // For now, we'll assume the checkout is successful
+    // Simulate checkout
     cart.items = []; // Empty the cart after checkout
     await cart.save();
 

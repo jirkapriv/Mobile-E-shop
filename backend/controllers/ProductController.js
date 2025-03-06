@@ -1,4 +1,5 @@
 const Product = require('../models/Product');  // Assuming you have a Product model
+const mongoose = require("mongoose");
 
 // Fetch all products
 exports.getAllProducts = async (req, res) => {
@@ -25,17 +26,32 @@ exports.getProductById = async (req, res) => {
   }
 };
 
+
+
+// Fetch products by category
 exports.getProductsByCategory = async (req, res) => {
   try {
-    const products = await Product.find({ categoryId: req.params.categoryId }); // Assuming `categoryId` is part of the Product schema
-    if (products) {
-      return res.status(200).json({ payload: products, msg: 'Products fetched successfully' });
+    const categoryId = req.params.id; // Ensure you are using 'id' as the parameter
+    console.log("Received categoryId:", categoryId);
+
+    if (!categoryId) {
+      return res.status(400).json({ msg: "Category ID is required" });
+    }
+
+    // Use mongoose.Types.ObjectId to convert the categoryId to an ObjectId
+    const categoryObjectId = new mongoose.Types.ObjectId(categoryId);
+    
+    const products = await Product.find({ categoryId: categoryObjectId });
+    console.log("Found products:", products);
+
+    if (products.length > 0) {
+      return res.status(200).json({ payload: products, msg: "Products fetched successfully" });
     } else {
-      return res.status(404).json({ msg: 'No products found for this category' });
+      return res.status(404).json({ msg: "No products found for this category" });
     }
   } catch (error) {
-    console.error('Error fetching products:', error);
-    return res.status(500).json({ msg: 'Error fetching products', error });
+    console.error("Error fetching products:", error);
+    return res.status(500).json({ msg: "Error fetching products", error: error.message });
   }
 };
 

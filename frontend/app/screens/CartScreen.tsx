@@ -1,21 +1,14 @@
-// src/screens/CartScreen.tsx
-
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Button, StyleSheet } from 'react-native';
 import { getCart } from '../models/Cart'; // Assuming you have a cart model for API calls
 
-interface CartItem {
-  productId: string;
-  quantity: number;
-}
-
-const CartScreen: React.FC = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
-  const userId = 'mockUserId123'; // Replace with actual user ID
+const CartScreen = () => {
+  const [cart, setCart] = useState([]); // Store cart items here
+  const mockUserId = 'mockUserId123'; // Using mock user ID for testing
 
   useEffect(() => {
     const fetchCart = async () => {
-      const response = await getCart(userId);
+      const response = await getCart(mockUserId); // Pass mockUserId to the API
       if (response.status === 200) {
         setCart(response.payload.items); // Assuming cart payload contains items
       }
@@ -33,6 +26,7 @@ const CartScreen: React.FC = () => {
         renderItem={({ item }) => (
           <View style={styles.item}>
             <Text>{`Product: ${item.productId} | Quantity: ${item.quantity}`}</Text>
+            {/* Optionally display more product details like name, price, etc. */}
           </View>
         )}
       />

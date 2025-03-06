@@ -42,7 +42,6 @@ const HomeScreen: React.FC = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Categories</Text>
       {categories.length === 0 ? (
         <Text>No categories found</Text>
       ) : (

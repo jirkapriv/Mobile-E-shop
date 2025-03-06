@@ -6,12 +6,14 @@ const CategoryController = require("../controllers/CategoryController");
 
 // Routes for Products
 router.get("/products", ProductController.getAllProducts); // List all products
-router.get("/products/:id", ProductController.getProductByID); // Get product by ID
+router.get("/products/:id", ProductController.getProductById); // Get product by ID
 router.post("/products", ProductController.createProduct); // Create a new product
+router.get("/categories/:id/products", ProductController.getProductsByCategory);
+
 
 // Routes for Categories
 router.get("/categories", CategoryController.getAllCategories); // List all categories
-router.get("/categories/:id", CategoryController.getCategoryByID); // Get category by ID
+router.get("/categories/:id", CategoryController.getCategoryById); // Get category by ID
 router.post("/categories", CategoryController.createCategory); // Create a new category
 
 // Routes for Cart
